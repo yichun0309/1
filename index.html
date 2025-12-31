@@ -43,13 +43,13 @@
       background:#5f8778;
       color:#fff;
       position:relative;
-      min-height:210px;
+      height:260px;   /* 給明確高度，白色直條才是真直條 */
     }
 
     /* 左文字 + 右白條 */
     .card-inner{
       display:grid;
-      grid-template-columns: 1fr 120px; /* 白色直條寬度 */
+      grid-template-columns: 1fr 130px;
       height:100%;
     }
 
@@ -72,32 +72,45 @@
       line-height:1.75;
     }
 
-    /* 右側白色直條 */
+    /* =========================
+       右側白色直條
+    ========================= */
     .side{
       background:#ffffff;
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden; /* 避免旋轉後超出 */
+      overflow:hidden;
+      height:100%;
     }
 
-    /* ✅ 圖片逆時針轉 90 度（頭朝左） */
-    .side img{
-      max-width:90px;
-      max-height:140px;
-      width:auto;
-      height:auto;
-      object-fit:contain;
+    /* =========================
+       ⭐ 關鍵：旋轉的是「容器」
+       容器本身就是長條
+    ========================= */
+    .logo-box{
+      height:90%;              /* 幾乎等於白色直條高度 */
+      aspect-ratio: 1 / 4;     /* 長條比例（可微調） */
 
-      transform: rotate(-90deg);
-      transform-origin: center center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      transform: rotate(-90deg);   /* ⭐ 旋轉容器 */
+    }
+
+    /* 圖片本身不旋轉、不裁切 */
+    .logo-box img{
+      width:100%;
+      height:100%;
+      object-fit:contain;      /* 絕不裁切 */
       display:block;
     }
 
     /* Go 按鈕 */
     .go{
       position:absolute;
-      right:138px; /* 貼近白色直條 */
+      right:150px;
       bottom:16px;
       background:#f7b84b;
       color:#333;
@@ -109,25 +122,29 @@
     }
     .go:hover{ background:#ffcc66; }
 
-    /* 手機版 */
+    /* =========================
+       手機版
+    ========================= */
     @media (max-width: 900px){
       .grid{ grid-template-columns:1fr; }
+
+      .card{
+        height:auto;
+        min-height:240px;
+      }
 
       .card-inner{
         grid-template-columns:1fr;
       }
 
       .side{
+        height:180px;
         border-top:1px solid #ddd;
-        padding:14px 0;
       }
 
-      /* 手機版也同樣逆時針轉 90 度 */
-      .side img{
-        max-width:200px;
-        max-height:90px;
-        transform: rotate(-90deg);
-        transform-origin: center center;
+      .logo-box{
+        height:90%;
+        aspect-ratio: 1 / 3.5;  /* 手機稍微胖一點比較好看 */
       }
 
       .go{
@@ -154,7 +171,9 @@
           </p>
         </div>
         <div class="side">
-          <img src="images/tccip.png" alt="TCCIP">
+          <div class="logo-box">
+            <img src="images/tccip.png" alt="TCCIP">
+          </div>
         </div>
       </div>
       <a class="go" href="https://tccip.ncdr.nat.gov.tw/au_01.aspx" target="_blank">Go</a>
@@ -171,7 +190,9 @@
           </p>
         </div>
         <div class="side">
-          <img src="images/dra.png" alt="DRA">
+          <div class="logo-box">
+            <img src="images/dra.png" alt="DRA">
+          </div>
         </div>
       </div>
       <a class="go" href="https://dra.ncdr.nat.gov.tw/" target="_blank">Go</a>
@@ -188,7 +209,9 @@
           </p>
         </div>
         <div class="side">
-          <img src="images/drr.png" alt="DRR">
+          <div class="logo-box">
+            <img src="images/drr.png" alt="DRR">
+          </div>
         </div>
       </div>
       <a class="go" href="https://drrstat.ncdr.nat.gov.tw/" target="_blank">Go</a>
@@ -205,7 +228,9 @@
           </p>
         </div>
         <div class="side">
-          <img src="images/cca.png" alt="CCA">
+          <div class="logo-box">
+            <img src="images/cca.png" alt="CCA">
+          </div>
         </div>
       </div>
       <a class="go" href="https://www.cca.gov.tw/" target="_blank">Go</a>
@@ -222,7 +247,9 @@
           </p>
         </div>
         <div class="side">
-          <img src="images/netzero.png" alt="淨零新北">
+          <div class="logo-box">
+            <img src="images/netzero.png" alt="淨零新北">
+          </div>
         </div>
       </div>
       <a class="go" href="https://lowcarbon.epd.ntpc.gov.tw/ntpcepd/" target="_blank">Go</a>
@@ -239,7 +266,9 @@
           </p>
         </div>
         <div class="side">
-          <img src="images/lowcarbon.png" alt="低碳生活網">
+          <div class="logo-box">
+            <img src="images/lowcarbon.png" alt="低碳生活網">
+          </div>
         </div>
       </div>
       <a class="go" href="https://lowcarbon.epd.ntpc.gov.tw/lowcarbon/front/" target="_blank">Go</a>
